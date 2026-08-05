@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import { supabase } from '../lib/supabaseClient'
+import { dataManager } from '../lib/dataManager'
 import StatsCards from '../components/StatsCards'
 import GenerationForm from '../components/GenerationForm'
 import HistoryTable from '../components/HistoryTable'
@@ -14,19 +14,10 @@ export default function Dashboard() {
   const [generatedSNs, setGeneratedSNs] = useState(null)
   const [loading, setLoading] = useState(true)
 
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(() => {
     try {
-      // Fetch SKUs
-      const { data: skuData } = await supabase
-        .from('sku_ledger')
-        .select('*')
-        .order('sku')
-
-      // Fetch history
-      const { data: historyData } = await supabase
-        .from('generation_history')
-        .select('*')
-        .order('created_at', { ascending: false })
+      const skuData = dataManager.getSKUs()
+      const historyData = dataManager.getHistory()
 
       if (skuData) setSkus(skuData)
       if (historyData) {
@@ -39,6 +30,8 @@ export default function Dashboard() {
         // Latest batch
         if (historyData.length > 0) {
           setLatestBatch(historyData[0])
+        } else {
+          setLatestBatch(null)
         }
       }
     } catch (err) {

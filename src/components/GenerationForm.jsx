@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { Zap } from 'lucide-react'
-import { supabase } from '../lib/supabaseClient'
-import { getPermaNo, generateRandomSequence, generateSerialNumbers } from '../lib/snGenerator'
+import { dataManager } from '../lib/dataManager'
+import { getPermaNo } from '../lib/snGenerator'
 
 export default function GenerationForm({ skus, onGenerated }) {
   const [selectedSku, setSelectedSku] = useState('')
@@ -33,51 +33,8 @@ export default function GenerationForm({ skus, onGenerated }) {
     setLoading(true)
 
     try {
-      // 1. Call RPC to atomically reserve flow numbers
-      const { data: rangeData, error: rpcError } = await supabase
-        .rpc('generate_sn_range', {
-          p_sku: selectedSku,
-          p_quantity: qty
-        })
-
-      if (rpcError) throw rpcError
-      if (!rangeData || rangeData.length === 0) throw new Error('Failed to reserve flow numbers')
-
-      const { start_flow, end_flow } = rangeData[0]
-
-      // 2. Generate random 3-digit sequence (one per batch)
-      const randomSeq = generateRandomSequence()
-
-      // 3. Assemble serial numbers
-      const precursor = selectedSkuData.precursor
-      const serialNumbers = generateSerialNumbers(precursor, permaNo, randomSeq, start_flow, end_flow)
-
-      // 4. Record in generation_history
-      const { error: insertError } = await supabase
-        .from('generation_history')
-        .insert({
-          sku: selectedSku,
-          quantity_generated: qty,
-          starting_sn: serialNumbers[0],
-          ending_sn: serialNumbers[serialNumbers.length - 1],
-          serial_numbers: serialNumbers.join(', ')
-        })
-
-      if (insertError) throw insertError
-
-      // 5. Update sku_ledger with last used perma_no and random_sequence
-      await supabase
-        .from('sku_ledger')
-        .update({
-          last_perma_no: permaNo,
-          last_random_sequence: randomSeq
-        })
-        .eq('sku', selectedSku)
-
-      // 6. Notify parent
+      const serialNumbers = await dataManager.generateSNBatch(selectedSku, qty)
       onGenerated(serialNumbers)
-
-      // Reset form
       setQuantity('')
     } catch (err) {
       console.error('Generation failed:', err)

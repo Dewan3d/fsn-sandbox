@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { supabase } from '../lib/supabaseClient'
+import { dataManager } from '../lib/dataManager'
 import { Pencil, Check, X, AlertTriangle } from 'lucide-react'
 
 export default function SkuTable({ skus, onUpdate }) {
@@ -24,18 +24,13 @@ export default function SkuTable({ skus, onUpdate }) {
   const saveEdit = async (sku) => {
     if (editField === 'current_flow_number') {
       // Show confirmation for flow number changes
-      setConfirmReset({ sku, value: parseInt(editValue) })
+      setConfirmReset({ sku, value: parseInt(editValue) || 0 })
       return
     }
 
     setSaving(true)
     try {
-      const { error } = await supabase
-        .from('sku_ledger')
-        .update({ [editField]: editValue })
-        .eq('sku', sku)
-
-      if (error) throw error
+      await dataManager.updateSKU(sku, { [editField]: editValue })
       cancelEdit()
       onUpdate()
     } catch (err) {
@@ -51,12 +46,7 @@ export default function SkuTable({ skus, onUpdate }) {
 
     setSaving(true)
     try {
-      const { error } = await supabase
-        .from('sku_ledger')
-        .update({ current_flow_number: confirmReset.value })
-        .eq('sku', confirmReset.sku)
-
-      if (error) throw error
+      await dataManager.updateSKU(confirmReset.sku, { current_flow_number: confirmReset.value })
       setConfirmReset(null)
       cancelEdit()
       onUpdate()
