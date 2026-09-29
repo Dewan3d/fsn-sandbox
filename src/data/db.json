@@ -157,10 +157,10 @@
       "id": "06b894a2-9ab6-49e6-908f-a0b53d8769d7",
       "sku": "P-PV110-EU-BK-BL-010",
       "precursor": "PV110",
-      "last_perma_no": null,
-      "last_random_sequence": null,
-      "current_flow_number": 0,
-      "updated_at": "2026-07-28T17:00:30.79884+00:00"
+      "last_perma_no": "20260929",
+      "last_random_sequence": "869",
+      "current_flow_number": 1,
+      "updated_at": "2026-09-29T07:53:19.511Z"
     },
     {
       "id": "703e30d6-3ed9-43d8-82bf-73d745d17456",
@@ -209,6 +209,15 @@
     }
   ],
   "generation_history": [
+    {
+      "id": "14b61725-f0e7-4813-b28f-0bab32adca15",
+      "sku": "P-PV110-EU-BK-BL-010",
+      "quantity_generated": 1,
+      "starting_sn": "PV110-20260929869001",
+      "ending_sn": "PV110-20260929869001",
+      "serial_numbers": "PV110-20260929869001",
+      "created_at": "2026-09-29T07:53:19.511Z"
+    },
     {
       "id": "0b7e9c03-bf55-4a6a-b10d-5e357d23c3fc",
       "sku": "P-PV50G-SA-BK-BL-010",
