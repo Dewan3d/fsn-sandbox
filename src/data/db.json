@@ -148,10 +148,10 @@
       "id": "da0642db-f94b-421f-9970-966a276d9793",
       "sku": "P-PV100G-UN-WH-10",
       "precursor": "PV100G",
-      "last_perma_no": null,
-      "last_random_sequence": null,
-      "current_flow_number": 0,
-      "updated_at": "2026-07-28T17:00:30.79884+00:00"
+      "last_perma_no": "20260929",
+      "last_random_sequence": "885",
+      "current_flow_number": 1,
+      "updated_at": "2026-09-29T15:08:40.126Z"
     },
     {
       "id": "06b894a2-9ab6-49e6-908f-a0b53d8769d7",
@@ -209,6 +209,15 @@
     }
   ],
   "generation_history": [
+    {
+      "id": "bf308fee-f4d4-4c4f-91fc-636bd90f80e6",
+      "sku": "P-PV100G-UN-WH-10",
+      "quantity_generated": 1,
+      "starting_sn": "PV100G-20260929885001",
+      "ending_sn": "PV100G-20260929885001",
+      "serial_numbers": "PV100G-20260929885001",
+      "created_at": "2026-09-29T15:08:40.126Z"
+    },
     {
       "id": "14b61725-f0e7-4813-b28f-0bab32adca15",
       "sku": "P-PV110-EU-BK-BL-010",
