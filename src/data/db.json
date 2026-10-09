@@ -202,13 +202,22 @@
       "id": "54b20c02-505e-419b-bd5c-e784ceb2d276",
       "sku": "P-PV75G-SA-BK-BL-010",
       "precursor": "PV75G",
-      "last_perma_no": "20261006",
-      "last_random_sequence": "876",
-      "current_flow_number": 1632,
-      "updated_at": "2026-10-06T07:56:27.077Z"
+      "last_perma_no": "20261009",
+      "last_random_sequence": "788",
+      "current_flow_number": 1642,
+      "updated_at": "2026-10-09T16:19:02.767Z"
     }
   ],
   "generation_history": [
+    {
+      "id": "64869117-1485-4be0-9b21-ab9e55c93212",
+      "sku": "P-PV75G-SA-BK-BL-010",
+      "quantity_generated": 10,
+      "starting_sn": "PV75G-202610097881633",
+      "ending_sn": "PV75G-202610097881642",
+      "serial_numbers": "PV75G-202610097881633, PV75G-202610097881634, PV75G-202610097881635, PV75G-202610097881636, PV75G-202610097881637, PV75G-202610097881638, PV75G-202610097881639, PV75G-202610097881640, PV75G-202610097881641, PV75G-202610097881642",
+      "created_at": "2026-10-09T16:19:02.767Z"
+    },
     {
       "id": "3f33a1a4-9520-4142-98ac-0f58482b5077",
       "sku": "A-DCFAN-SA",
